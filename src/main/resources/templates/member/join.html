@@ -9,38 +9,38 @@
 
 <div layout:fragment="content">
 
-    <script>
+    <script th:inline="javascript">
         function join() {
 
+            $.ajax({
+                type: "post",
+                url: "/member/join",
+                dataType: "json",
+                data: {
+                    "id": $("#id").val(),
+                    "password": $("#password").val(),
+                    "name": $("#name").val()
+                },
+                success: function (data) {
+                    //alert("성공");
+
+                },
+
+
+
+                error: function (data,request,error) {
+                    alert(data.responseText);
+                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error)
+                    console.log(data)
+                    console.log(request)
+                    console.log(error)
+                }
+            });
         }
-        $.ajax({
-            type: "post",
-            url: "/member/join",
-            dataType: "json",
-            data: {
-                "id": $("#id").val(),
-                "password": $("#password").val(),
-                "name": $("#name").val()
-            },
-            success: function (data,code,request,status,error,xhr) {
-                //alert("성공");
-                console.log(code);
-            },
-
-
-            error: function (data,request,status,error,xhr) {
-                console.log(xhr.responseText);
-                console.log(data.error());
-                console.log(request.responseText);
-
-
-
-            }
-        });
     </script>
     <div id="container">
         <h2>회원가입</h2>
-        <form th:action="@{join}" method="post">
+<!--        <form>-->
             <table class="tbl_login">
                 <tr>
                     <td>아이디</td>
@@ -59,12 +59,12 @@
                     <td><input id = "name" type="text" name="name"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
+                    <td colspan="2" >
                         <button type="button" onclick="join()">가입하기</button>
                     </td>
                 </tr>
             </table>
-        </form>
+<!--        </form>-->
     </div>
 
 </div>
