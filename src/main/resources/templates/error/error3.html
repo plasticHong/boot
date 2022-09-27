@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Title</title>
+</head>
+
+<div layout:fragment="content">
+
+    <div style="border: 1px solid red">
+        <h1 th:text="${board}"></h1>
+
+        <th:block th:each="item:${list}">
+            <p th:text="${item.title}"></p>
+        </th:block>
+    </div>
+
+</div>
+
+</html>

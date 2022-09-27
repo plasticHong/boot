@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Title</title>
+</head>
+
+<div layout:fragment="content">
+
+    <div id="container">
+        <h2>글쓰기</h2>
+        <form th:action="@{insertBoard}" method="post">
+            <table class="tbl_reg">
+                <tr>
+                    <td>제목</td>
+                    <td><input type="text" name="title"></td>
+                </tr>
+                <tr>
+                    <td>작성자</td>
+                    <td><input type="text" name="member" th:value="${session['member'].name}"></td>
+                </tr>
+                <tr>
+                    <td>내용</td>
+                    <td>
+                        <textarea name="content" rows="10" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="submit">새글 등록</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</html>

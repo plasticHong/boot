@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Title</title>
+</head>
+
+<div layout:fragment="content">
+
+    <script>
+        function join() {
+
+        }
+        $.ajax({
+            type: "post",
+            url: "/member/join",
+            dataType: "json",
+            data: {
+                "id": $("#id").val(),
+                "password": $("#password").val(),
+                "name": $("#name").val()
+            },
+            success: function (data,code,request,status,error,xhr) {
+                //alert("성공");
+                console.log(code);
+            },
+
+
+            error: function (data,request,status,error,xhr) {
+                console.log(xhr.responseText);
+                console.log(data.error());
+                console.log(request.responseText);
+
+
+
+            }
+        });
+    </script>
+    <div id="container">
+        <h2>회원가입</h2>
+        <form th:action="@{join}" method="post">
+            <table class="tbl_login">
+                <tr>
+                    <td>아이디</td>
+                    <td><input id = "id" type="text" name="id"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호</td>
+                    <td><input id = "password" type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td>비밀번호 확인</td>
+                    <td><input type="password" name="password_confirm"></td>
+                </tr>
+                <tr>
+                    <td>이름</td>
+                    <td><input id = "name" type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <button type="button" onclick="join()">가입하기</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+
+</html>

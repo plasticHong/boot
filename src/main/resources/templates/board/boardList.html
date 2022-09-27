@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Title</title>
+</head>
+
+<div layout:fragment="content">
+
+    <div id="container">
+        <h2>게시글 목록</h2>
+        <h3><span th:text="${session['member'].name}"></span>님
+            게시판 입장을 환영합니다.</h3>
+        <p><a th:href="@{/member/logout}"}>LOG_OUT</a></p>
+        <table class="tbl_list">
+            <thead>
+            <tr>
+                <th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${boardList}">
+                <td th:text="${board.seq}"></td>
+                <td><a th:href="@{/getBoard(seq=${board.seq})}"
+                       th:text="${board.title}"></a></td>
+                <td th:text="${board.member.getId()}"></td>
+                <td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${board.cnt}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a th:href="@{/insertBoard}">새글 등록</a> </p>
+    </div>
+
+</div>
+
+</html>

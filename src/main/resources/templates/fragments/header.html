@@ -1,0 +1,25 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+
+<header th:fragment="headerFragment" class = "header">
+    <div style="border: 1px solid green">
+        <h2>header</h2>
+        <p>
+            <a th:href="@{/}">메인</a>&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;
+          <th:block th:if="${session['member'] != null||session['member'] == 'null' }">
+                <a th:href="@{/member/profile}" th:text="'('+${session['member'].id}+') 나의 정보'"></a>
+              <a th:href="@{/member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
+          </th:block>
+            <th:block th:if="${session['member'] == null}">
+                <a th:href="@{/member/login}">로그인</a>&nbsp;&nbsp;&nbsp;
+                <a th:href="@{/member/join}">회원가입</a>&nbsp;&nbsp;&nbsp;
+            </th:block>
+            <a th:href="@{/error/error1}"}>404_Error</a>&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/error/error2}"}>IllegalArgumentException</a>&nbsp;&nbsp;&nbsp;
+            <a th:href="@{/error/error3}"}>SQLException</a>&nbsp;&nbsp;&nbsp;
+        </p>
+    </div>
+</header>
+
+</html>
