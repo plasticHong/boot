@@ -8,6 +8,7 @@ import java.util.List;
 import com.spring.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +36,11 @@ public class BoardController {
     @GetMapping("/getBoardList")
     public String getBoardList(Model model,@ModelAttribute("member")Member member) {
 
-        List<Board> boardList = (List<Board>) service.getBoardList();
+        Page<Board> boardList = service.getBoardList();
 
         model.addAttribute("boardList", boardList);
 
-        if(member.getId() == null) {
-            return "redirect:/member/login";
-        }
+
 
         return "/board/boardList";
     }
@@ -49,10 +48,7 @@ public class BoardController {
     //게시글 등록 폼 요청
     @GetMapping("/insertBoard")
     public String insertBoard(@ModelAttribute("member") Member member) {
-        //로그인 하지 않은 경우 - 로그인 페이지로 이동
-        if(member.getId() == null) {
-            return "redirect:/member/login";
-        }
+
         return "/board/insertBoard";
     }
 

@@ -24,9 +24,12 @@ public class Member {
     private String password;
     private String name;
 
-    @Column(insertable=false, updatable=true, nullable = false,
-            columnDefinition = "varchar default ROLE_ADMIN") //create 할 때 적용
-    private String role;
+    @Column(insertable=true, updatable=true, nullable = true,
+            columnDefinition = "varchar default ROLE_USER") //create 할 때 적용
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    private boolean enabled;
 
     @OneToMany(mappedBy = "member",fetch = FetchType.EAGER)
     private List<Board> boardList = new ArrayList<>();

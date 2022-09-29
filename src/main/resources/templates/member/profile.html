@@ -11,7 +11,7 @@
 
     <div id="container">
         <h2>나의 정보</h2>
-        <form th:action="@{/member/update}" method="post">
+        <form th:action="@{/member/update}" method="post" >
             <table class="tbl_login">
                 <tr>
                     <td>아이디</td>
@@ -30,8 +30,12 @@
                     <td><input type="text" name="name" th:value="${session['member'].name}"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center">
-                        <button type="submit">수정하기</button>
+                    <td>이름</td>
+                    <td><input type="text" name="name" th:value="${session['member'].role}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" >수정하기</button>
                     </td>
                 </tr>
             </table>

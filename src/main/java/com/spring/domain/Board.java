@@ -31,7 +31,7 @@ public class Board {
             columnDefinition = "timestamp default current_timestamp") //create 할 때 적용
     private Date createDate;
 
-    @Column(insertable=false, updatable=false,
+    @Column(insertable=false, updatable=true,
             columnDefinition = "int default 0")
     private int cnt;
 

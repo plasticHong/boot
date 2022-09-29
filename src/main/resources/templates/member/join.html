@@ -5,66 +5,132 @@
       layout:decorate="~{layouts/layout}">
 <head>
     <title>Title</title>
-</head>
-
-<div layout:fragment="content">
 
     <script th:inline="javascript">
-        function join() {
+        function validate() {
 
+            let id = $("#id").val();
+            let pw = $("#password").val()
+            let pw_confirm = $("#password_confirm").val()
+            let name = $("#name").val()
+
+
+            let idvalcheck = /^[a-zA-Z0-9]+$/
+            let pwdcheck = /^[a-zA-Z0-9]+$/
+
+            if (!idvalcheck.test(id)) {
+                alert("아이디는 영문 대,소문자,숫자만 가능합니다.")
+                $("#id").focus();
+            } else if (pw != pw_confirm) {
+                alert("비밀번호를 정확하게 확인해 주세요")
+            }else {
+                join();
+            }
+
+        }
+        function join() {
+            console.log("join함수 실행");
             $.ajax({
                 type: "post",
                 url: "/member/join",
-                dataType: "json",
+                //dataType: "json",
                 data: {
                     "id": $("#id").val(),
                     "password": $("#password").val(),
                     "name": $("#name").val()
                 },
                 success: function (data) {
-                    //alert("성공");
+                    console.log("join함수 응답 성공");
 
+                    alert("회원가입 성공");
+                    location.href="/member/login";
                 },
 
 
+                error: function (data, request, error, code) {
+                    if (data.status === 400) {
+                        // alert(data.responseText);
+                        console.log(data.status)
+                        $("#result").text(data.responseText);
+                    } else {
+                        console.log(data.status)
+                        console.log(data.message)
+                        console.log(data)
+                    }
 
-                error: function (data,request,error) {
-                    alert(data.responseText);
-                    console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error)
-                    console.log(data)
-                    console.log(request)
-                    console.log(error)
+
+                }
+            });
+        }
+
+         function check() {
+
+            $.ajax({
+                type: "post",
+                url: "/member/check",
+                //dataType: "json",
+                data: {
+                    "id": $("#id").val(),
+                    "password": $("#password").val(),
+                    "name": $("#name").val()
+                },
+                success: function (data) {
+                    $("#result").text("사용 가능한 아이디 입니다.");
+                },
+
+
+                error: function (data, request, error, code) {
+                    if (data.status === 400) {
+                       // alert(data.responseText);
+                        console.log(data.status)
+                        $("#result").text(data.responseText);
+                    } else {
+                        console.log(data.status)
+                        console.log(data.message)
+                        console.log(data)
+                    }
+
+                    return false;
+
+
                 }
             });
         }
     </script>
+</head>
+
+<div layout:fragment="content">
+
+
     <div id="container">
         <h2>회원가입</h2>
-<!--        <form>-->
-            <table class="tbl_login">
-                <tr>
-                    <td>아이디</td>
-                    <td><input id = "id" type="text" name="id"></td>
-                </tr>
-                <tr>
-                    <td>비밀번호</td>
-                    <td><input id = "password" type="password" name="password"></td>
-                </tr>
-                <tr>
-                    <td>비밀번호 확인</td>
-                    <td><input type="password" name="password_confirm"></td>
-                </tr>
-                <tr>
-                    <td>이름</td>
-                    <td><input id = "name" type="text" name="name"></td>
-                </tr>
-                <tr>
-                    <td colspan="2" >
-                        <button type="button" onclick="join()">가입하기</button>
-                    </td>
-                </tr>
-            </table>
+<!--        <form action="/member/join" method="post">-->
+        <table class="tbl_login">
+            <tr>
+                <td>아이디</td>
+                <td><input id="id" type="text" name="id"><button type = "button" th:onclick="check()" value="check" style = "width: 100px">check</button><div id = "result"></div></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input id="password" type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td>비밀번호 확인</td>
+                <td><input id="password_confirm" name="password_confirm"></td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td><input id="name" type="text" name="name"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="button" onclick="validate()" >가입하기</button>
+                </td>
+            </tr>
+        </table>
+
 <!--        </form>-->
+
     </div>
 
 </div>

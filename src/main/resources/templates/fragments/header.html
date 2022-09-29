@@ -1,25 +1,39 @@
 <!DOCTYPE html >
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www/thymeleaf.org/extras/spring-security">
 
 <header th:fragment="headerFragment" class = "header">
     <div style="border: 1px solid green">
-        <h2>header</h2>
+        <h2>
+
+            <th:block th:if="${session['member'] != null||session['member'] == 'null' }">
+                <span th:text="${session['member'].role}"></span>
+            </th:block>
+
+            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                <p>관리자 계정</p>
+            </div>
+<!--            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false}">-->
+<!--            </div>-->
+
+            header</h2>
         <p>
             <a th:href="@{/}">메인</a>&nbsp;&nbsp;&nbsp;
             <a th:href="@{/getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;
-          <th:block th:if="${session['member'] != null||session['member'] == 'null' }">
-                <a th:href="@{/member/profile}" th:text="'('+${session['member'].id}+') 나의 정보'"></a>
-              <a th:href="@{/member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
-          </th:block>
-            <th:block th:if="${session['member'] == null}">
+
+              <span sec:authorize="isAuthenticated()">
+                  <a th:href="@{/member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'"></a>&nbsp;&nbsp;&nbsp;
+                  <a th:href="@{/member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
+              </span>
+
+            <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">
                 <a th:href="@{/member/login}" th:method="post">로그인</a>&nbsp;&nbsp;&nbsp;
-
-                    <a th:href="@{/member/join}" >회원가입</a>
-
+                <a th:href="@{/member/join}" >회원가입</a>
             </th:block>
-            <a th:href="@{/error/error1}"}>404_Error</a>&nbsp;&nbsp;&nbsp;
-            <a th:href="@{/error/error2}"}>IllegalArgumentException</a>&nbsp;&nbsp;&nbsp;
-            <a th:href="@{/error/error3}"}>SQLException</a>&nbsp;&nbsp;&nbsp;
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <a th:href="@{/admin}"}>관리자 페이지</a>
+        </th:block>
+            &nbsp;&nbsp;&nbsp;
         </p>
     </div>
 </header>

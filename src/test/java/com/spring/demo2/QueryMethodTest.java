@@ -71,46 +71,46 @@ public class QueryMethodTest {
     }
 
 
-    @BeforeEach
-    public void testManyToOneInsert(){
-
-        Member member1 = new Member();
-        member1.setPassword("wee");
-        member1.setName("wee");
-        member1.setRole("ROLE_ADMIN");
-        member1.setId("wee");
-
-        memberRepo.save(member1);
-
-        Member member2 = new Member();
-        member2.setPassword("wee2");
-        member2.setName("wee");
-        member2.setRole("ROLE_ADMIN");
-        member2.setId("wee2");
-
-        memberRepo.save(member2);
-
-        for (int i = 1; i <= 3; i++) {
-
-            Board board = new Board();
-            board.setContent("wee");
-            board.setMember(member1);
-            board.setTitle("wee");
-
-            boardRepo.save(board);
-        }
-
-        for (int i = 1; i <= 3; i++) {
-
-            Board board = new Board();
-            board.setContent("wee");
-            board.setMember(member2);
-            board.setTitle("wee");
-
-            boardRepo.save(board);
-        }
-
-    }
+//    @BeforeEach
+//    public void testManyToOneInsert(){
+//
+//        Member member1 = new Member();
+//        member1.setPassword("wee");
+//        member1.setName("wee");
+//        member1.setRole("ROLE_ADMIN");
+//        member1.setId("wee");
+//
+//        memberRepo.save(member1);
+//
+//        Member member2 = new Member();
+//        member2.setPassword("wee2");
+//        member2.setName("wee");
+//        member2.setRole("ROLE_ADMIN");
+//        member2.setId("wee2");
+//
+//        memberRepo.save(member2);
+//
+//        for (int i = 1; i <= 3; i++) {
+//
+//            Board board = new Board();
+//            board.setContent("wee");
+//            board.setMember(member1);
+//            board.setTitle("wee");
+//
+//            boardRepo.save(board);
+//        }
+//
+//        for (int i = 1; i <= 3; i++) {
+//
+//            Board board = new Board();
+//            board.setContent("wee");
+//            board.setMember(member2);
+//            board.setTitle("wee");
+//
+//            boardRepo.save(board);
+//        }
+//
+//    }
 
 
 

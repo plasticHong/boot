@@ -8,4 +8,6 @@ public interface MemberService {
     Member memberJoin(Member member);
 
     void updateMember(Member member);
+
+    boolean checkId(Member member);
 }

@@ -1,10 +1,12 @@
 package com.spring.service;
 
 import com.spring.domain.Member;
+import com.spring.domain.Role;
 import com.spring.exception.BadRequestException;
 import com.spring.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class MemberServiceImp implements MemberService {
 
     MemberRepository memberRepo;
+
+    PasswordEncoder passwordEncoder;
 
     @Override
     public Member getMember(Member member) {
@@ -33,6 +37,10 @@ public class MemberServiceImp implements MemberService {
             throw new BadRequestException("이미 존재하는 회원입니다.");
         });
 
+        String encoded = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encoded);
+
+        member.setRole(Role.ROLE_USER);
 
         memberRepo.save(member);
 
@@ -52,5 +60,11 @@ public class MemberServiceImp implements MemberService {
             throw new RuntimeException();
         }
 
+    }
+
+
+    @Override
+    public boolean checkId(Member member) {
+        return memberRepo.findById(member.getId()).isPresent();
     }
 }

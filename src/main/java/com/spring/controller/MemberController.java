@@ -1,11 +1,13 @@
 package com.spring.controller;
 
 import com.spring.domain.Member;
+import com.spring.domain.Role;
 import com.spring.exception.BadRequestException;
 import com.spring.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -31,17 +34,15 @@ public class MemberController {
     MemberService service;
 
     @GetMapping("login")
-    public String login(HttpServletRequest request) {
-        log.info("method : " + request.getMethod() + ", url : " + request.getRequestURL());
+    public String login() {
 
         return "/member/login";
     }
 
     @PostMapping("login")
-    public String login(Member member, Model model,HttpServletRequest request) {
-        log.info("method : " + request.getMethod() + ", url : " + request.getRequestURL());
-
+    public String login(Member member, Model model,HttpSession session) {
         Member findMember = service.getMember(member);
+
         if (findMember != null
                 && findMember.getPassword().equals(member.getPassword())) {
             model.addAttribute("member", findMember);  //세션 발급
@@ -63,30 +64,39 @@ public class MemberController {
     }
 
     @GetMapping("join")
-    public String joinForm(HttpServletRequest request) {
-        log.info("method : " + request.getMethod() + ", url : " + request.getRequestURL());
+    public String joinForm() {
+        System.out.println("member.toString()");
+
         return "/member/join";
 
     }
 
     @PostMapping("join")
-    @ResponseBody
-    public Object doJoin(Member member, Model model, HttpServletRequest request) {
-        log.info("method : " + request.getMethod() + ", url : " + request.getRequestURL());
-        try {
+    public Object doJoin(Member member, Model model) {
 
+            System.out.println("member = "+member.toString());
             Member joinMember = service.memberJoin(member);
 
-        } catch (BadRequestException e) {
+        return "/member/login";
+    }
+
+
+    @PostMapping("/check")
+    @ResponseBody
+    public Object idDuplicateCheck(Member member) {
+
+        System.out.println("zz");
+
+        boolean isDuplicate = service.checkId(member);
+
+        if (isDuplicate) {
             String msg = "이미 존재하는 회원입니다.";
-            return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(msg, new HttpHeaders(), HttpStatus.BAD_REQUEST);
         }
 
-        HashMap<String, String > map = new HashMap<>();
-        map.put("member", "member");
-        return new ResponseEntity<>(member,HttpStatus.OK);
-
+        return "success";
     }
+
 
     @GetMapping("profile")
     public String profile() {
