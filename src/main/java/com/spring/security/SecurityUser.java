@@ -9,8 +9,14 @@ public class SecurityUser  extends User {   //User 는 UserDetails 의 구현체
     //시큐리티가 해석가능한 객체로 만듦
 
     private static final long serialVersionUID = 1L;
+    private Member member;
 
     public SecurityUser(Member member) {
         super(member.getId(), member.getPassword(), AuthorityUtils.createAuthorityList(member.getRole().toString()));
+        this.member = member;
+    }
+
+    public Member getMember() {
+        return member;
     }
 }

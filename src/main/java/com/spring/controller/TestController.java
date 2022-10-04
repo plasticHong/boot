@@ -66,5 +66,9 @@ public class TestController {
         return principal.getName();
     }
 
+    @GetMapping("/test")
+    public String  test() {
+        return "test";
+    }
 
 }

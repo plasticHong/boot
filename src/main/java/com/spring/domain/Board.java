@@ -7,6 +7,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -15,16 +16,18 @@ import java.util.Date;
 @Entity
 @DynamicInsert
 @ToString(exclude = "boardList")
-public class Board {
+public class Board implements Serializable {
+
+    private static final long serialVersionUID = 2L;
+
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seq;
 
     private String title;
-    @Column(updatable=false)
 
-    //private String writer;
+
     private String content;
 
     @Column(insertable=false, updatable=false,
@@ -36,8 +39,13 @@ public class Board {
     private int cnt;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false, updatable = false)
     Member member;
 
+
+    public void setMember(Member member){
+        this.member = member;
+        member.getBoardList().add(this);
+    }
 
 }

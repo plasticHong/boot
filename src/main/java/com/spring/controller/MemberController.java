@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/member/*")
+@RequestMapping("member/*")
 @SessionAttributes("member")
 public class MemberController {
 
@@ -36,7 +36,7 @@ public class MemberController {
     @GetMapping("login")
     public String login() {
 
-        return "/member/login";
+        return "member/login";
     }
 
     @PostMapping("login")
@@ -67,7 +67,7 @@ public class MemberController {
     public String joinForm() {
         System.out.println("member.toString()");
 
-        return "/member/join";
+        return "member/join";
 
     }
 
@@ -77,7 +77,7 @@ public class MemberController {
             System.out.println("member = "+member.toString());
             Member joinMember = service.memberJoin(member);
 
-        return "/member/login";
+        return "member/login";
     }
 
 
@@ -101,14 +101,14 @@ public class MemberController {
     @GetMapping("profile")
     public String profile() {
 
-        return "/member/profile";
+        return "member/profile";
     }
 
     @PostMapping("update")
     public String update(Member member) {
         service.updateMember(member);
 
-        return "/member/profile";
+        return "member/profile";
     }
 
 }

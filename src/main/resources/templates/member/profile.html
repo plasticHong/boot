@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/layout}">
 <head>
     <title>Title</title>
@@ -15,23 +16,36 @@
             <table class="tbl_login">
                 <tr>
                     <td>아이디</td>
-                    <td><input type="text" name="id" th:value="${session['member'].id}"></td>
+                    <td>
+<!--                        <input type="text" name="id" th:value="${session['member'].id}">-->
+                        <span sec:authentication="principal.member.name"></span>
+
+
+                    </td>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password" name="password" th:value="${session['member'].password}"></td>
+                    <td>
+<!--                        <input type="password" name="password" th:value="${session['member'].password}">-->
+                    </td>
                 </tr>
                 <tr>
                     <td>비밀번호 확인</td>
-                    <td><input type="password" name="password_confirm"></td>
+                    <td>
+<!--                        <input type="password" name="password_confirm">-->
+                    </td>
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td><input type="text" name="name" th:value="${session['member'].name}"></td>
+                    <td>
+<!--                        <input type="text" name="name" th:value="${session['member'].name}">-->
+                    </td>
                 </tr>
                 <tr>
                     <td>이름</td>
-                    <td><input type="text" name="name" th:value="${session['member'].role}"></td>
+                    <td>
+<!--                        <input type="text" name="name" th:value="${session['member'].role}">-->
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2">

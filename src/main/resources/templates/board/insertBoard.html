@@ -2,6 +2,7 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/layout}">
 <head>
     <title>Title</title>
@@ -19,7 +20,10 @@
                 </tr>
                 <tr>
                     <td>작성자</td>
-                    <td><input type="text" name="member" th:value="${session['member'].name}"></td>
+                    <td>
+<!--                        <input type="text" name="member" th:value="${session['member'].name}">-->
+                        <span sec:authentication="principal.member.name"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>내용</td>

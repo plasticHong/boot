@@ -18,20 +18,21 @@
             header</h2>
         <p>
             <a th:href="@{/}">메인</a>&nbsp;&nbsp;&nbsp;
-            <a th:href="@{/getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;
+            <a th:href="@{getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;
 
               <span sec:authorize="isAuthenticated()">
-                  <a th:href="@{/member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'"></a>&nbsp;&nbsp;&nbsp;
-                  <a th:href="@{/member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
+                  <a th:href="@{member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'"></a>&nbsp;&nbsp;&nbsp;
+                  <a th:href="@{member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
               </span>
 
             <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">
-                <a th:href="@{/member/login}" th:method="post">로그인</a>&nbsp;&nbsp;&nbsp;
-                <a th:href="@{/member/join}" >회원가입</a>
+                <a th:href="@{member/login}" th:method="post">로그인</a>&nbsp;&nbsp;&nbsp;
+                <a th:href="@{member/join}" >회원가입</a>
+                <a th:href="@{/test}" >테스트</a>
             </th:block>
 
         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-          <a th:href="@{/admin}"}>관리자 페이지</a>
+          <a th:href="@{admin}"}>관리자 페이지</a>
         </th:block>
             &nbsp;&nbsp;&nbsp;
         </p>

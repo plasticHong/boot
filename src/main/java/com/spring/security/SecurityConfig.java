@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .antMatchers("/").permitAll()   //parameter : http method enable
                 .antMatchers("/permitAll/*").permitAll()
                 .antMatchers("/member/join").permitAll()
+                .antMatchers("/test").permitAll()
                 .antMatchers("/board/*").authenticated()
                 .antMatchers("/hasRole_User/*").hasRole("USER")
                 .antMatchers("/admin/*").hasRole("ADMIN")
