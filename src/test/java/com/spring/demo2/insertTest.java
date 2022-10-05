@@ -43,6 +43,7 @@ public class insertTest {
         member.setId("cj3");
         member.setPassword(passwordEncoder.encode("cj"));
         member.setName("carl johnson");
+        member.setName("carl johnson");
 
         repository.save(member);
         Optional<Member> byId = repository.findById(member.getId());

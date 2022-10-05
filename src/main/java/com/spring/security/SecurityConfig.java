@@ -8,7 +8,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,6 +39,7 @@ public class SecurityConfig {
                 .antMatchers("/").permitAll()   //parameter : http method enable
                 .antMatchers("/permitAll/*").permitAll()
                 .antMatchers("/member/join").permitAll()
+                .antMatchers("/member/check").permitAll()
                 .antMatchers("/test").permitAll()
                 .antMatchers("/board/*").authenticated()
                 .antMatchers("/hasRole_User/*").hasRole("USER")
@@ -71,7 +71,7 @@ public class SecurityConfig {
     public SecurityFilterChain resources(HttpSecurity http) throws Exception {
         // ignoring
         return http.requestMatchers(matchers -> matchers
-                        .antMatchers("/css/**", "/js/**"))
+                        .antMatchers("/css/**", "/js/**", "/resources/**"))
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll())
                 .requestCache(RequestCacheConfigurer::disable)

@@ -36,6 +36,7 @@ public class MemberServiceImp implements MemberService {
         memberRepo.findById(member.getId()).ifPresent(action -> {
             throw new BadRequestException("이미 존재하는 회원입니다.");
         });
+        System.out.println("id"+member.getId());
 
         String encoded = passwordEncoder.encode(member.getPassword());
         member.setPassword(encoded);
@@ -65,6 +66,10 @@ public class MemberServiceImp implements MemberService {
 
     @Override
     public boolean checkId(Member member) {
-        return memberRepo.findById(member.getId()).isPresent();
+
+        boolean present = memberRepo.findById(member.getId()).isPresent();
+
+        return present;
+
     }
 }

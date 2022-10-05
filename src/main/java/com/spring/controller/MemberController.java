@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("member/*")
+@RequestMapping("/member/*")
 @SessionAttributes("member")
 public class MemberController {
 

@@ -12,7 +12,7 @@
 
     <div id="container">
         <h2>글쓰기</h2>
-        <form th:action="@{insertBoard}" method="post">
+        <form th:action="@{insertBoard}" method="post" enctype="multipart/form-data">
             <table class="tbl_reg">
                 <tr>
                     <td>제목</td>
@@ -29,6 +29,12 @@
                     <td>내용</td>
                     <td>
                         <textarea name="content" rows="10" cols="50"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>파일 업로드</td>
+                    <td>
+                        <input type="file" name="uploadFile" id="">
                     </td>
                 </tr>
                 <tr>

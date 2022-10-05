@@ -1,11 +1,17 @@
 package com.spring.controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import com.spring.domain.Member;
+import com.spring.dto.FileDTO;
 import com.spring.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
@@ -18,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import com.spring.domain.Board;
 import com.spring.domain.Member;
 import com.spring.service.BoardService;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @SessionAttributes("member")
@@ -36,12 +43,11 @@ public class BoardController {
 
     //게시글 목록
     @GetMapping("/getBoardList")
-    public String getBoardList(Model model,@ModelAttribute("member")Member member) {
+    public String getBoardList(Model model, @ModelAttribute("member") Member member) {
 
         Page<Board> boardList = service.getBoardList();
 
         model.addAttribute("boardList", boardList);
-
 
 
         return "board/boardList";
@@ -54,10 +60,27 @@ public class BoardController {
         return "board/insertBoard";
     }
 
+
+
     //게시글 등록 처리
     @PostMapping("/insertBoard")
-    public String insertBoard(Board board, @AuthenticationPrincipal SecurityUser principal) {
+    public String insertBoard(
+            Board board,
+            @AuthenticationPrincipal SecurityUser principal,
+            @RequestParam MultipartFile[] uploadFile) throws IOException {
         //@AuthenticationPrincipal 애노테이션을 사용하면 UserDetailsService에서 Return한 객체 를 파라메터로 직접 받아 사용
+
+        for (MultipartFile file : uploadFile) {
+            if (!file.isEmpty()) {
+                FileDTO dto = new FileDTO(UUID.randomUUID().toString(), file.getOriginalFilename(), file.getContentType());
+
+                File newFileName = new File(dto.getUid() + "_" + dto.getFileName());
+                file.transferTo(newFileName);
+            }
+
+
+        }
+
 
         board.setMember(principal.getMember());
         service.insertBoard(board);
@@ -85,8 +108,6 @@ public class BoardController {
         service.updateBoard(board);
         return "redirect:getBoardList";
     }
-
-
 
 
 }

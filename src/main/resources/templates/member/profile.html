@@ -18,7 +18,7 @@
                     <td>아이디</td>
                     <td>
 <!--                        <input type="text" name="id" th:value="${session['member'].id}">-->
-                        <span sec:authentication="principal.member.name"></span>
+                        <span sec:authentication="principal.member.id"></span>
 
 
                     </td>
@@ -38,6 +38,7 @@
                 <tr>
                     <td>이름</td>
                     <td>
+                        <span sec:authentication="principal.member.name"></span>
 <!--                        <input type="text" name="name" th:value="${session['member'].name}">-->
                     </td>
                 </tr>

@@ -2,41 +2,86 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www/thymeleaf.org/extras/spring-security">
 
 <header th:fragment="headerFragment" class = "header">
-    <div style="border: 1px solid green">
-        <h2>
+<!--    <div style="border: 1px solid green">-->
+<!--        <h2>-->
 
-            <th:block th:if="${session['member'] != null||session['member'] == 'null' }">
-                <span th:text="${session['member'].role}"></span>
-            </th:block>
+<!--            <th:block th:if="${session['member'] != null||session['member'] == 'null' }">-->
+<!--                <span th:text="${session['member'].role}"></span>-->
+<!--            </th:block>-->
 
-            <div sec:authorize="hasRole('ROLE_ADMIN')">
-                <p>관리자 계정</p>
-            </div>
-<!--            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false}">-->
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--                <p>관리자 계정</p>-->
 <!--            </div>-->
+<!--&lt;!&ndash;            <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false}">&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
 
-            header</h2>
-        <p>
-            <a th:href="@{/}">메인</a>&nbsp;&nbsp;&nbsp;
-            <a th:href="@{getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;
+<!--            header</h2>-->
+<!--        <p>-->
+<!--            <a th:href="@{/}">메인</a>&nbsp;&nbsp;&nbsp;-->
+<!--            <a th:href="@{/getBoardList}">글 목록</a>&nbsp;&nbsp;&nbsp;-->
 
-              <span sec:authorize="isAuthenticated()">
-                  <a th:href="@{member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'"></a>&nbsp;&nbsp;&nbsp;
-                  <a th:href="@{member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;
-              </span>
+<!--              <span sec:authorize="isAuthenticated()">-->
+<!--                  <a th:href="@{/member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'"></a>&nbsp;&nbsp;&nbsp;-->
+<!--                  <a th:href="@{/member/logout}"}>LOG_OUT</a>&nbsp;&nbsp;&nbsp;-->
+<!--              </span>-->
 
-            <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">
-                <a th:href="@{member/login}" th:method="post">로그인</a>&nbsp;&nbsp;&nbsp;
-                <a th:href="@{member/join}" >회원가입</a>
-                <a th:href="@{/test}" >테스트</a>
-            </th:block>
+<!--            <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">-->
+<!--                <a th:href="@{/member/login}" th:method="post">로그인</a>&nbsp;&nbsp;&nbsp;-->
+<!--                <a th:href="@{/member/join}" >회원가입</a>-->
+<!--                <a th:href="@{/test}" >테스트</a>-->
+<!--            </th:block>-->
 
-        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-          <a th:href="@{admin}"}>관리자 페이지</a>
-        </th:block>
-            &nbsp;&nbsp;&nbsp;
-        </p>
-    </div>
+<!--        <th:block sec:authorize="hasRole('ROLE_ADMIN')">-->
+<!--          <a th:href="@{admin}"}>관리자 페이지</a>-->
+<!--        </th:block>-->
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/">HiWeb</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                    <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/member/login}" th:method="post">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/member/join}">회원가입</a>
+                    </li>
+                    </th:block>
+
+                    <th:block  sec:authorize="isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/member/logout}"}>로그아웃</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/member/profile}" th:text="'('+${#authentication.name}+') 나의 정보'">나의 정보</a>
+                        </li>
+                    </th:block>
+
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/getBoardList}">게시판</a>
+                    </li>
+
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{admin}"}>관리자 페이지</a>
+                        </li>
+                    </th:block>
+
+
+
+                </ul>
+            </div>
+        </nav>
+
+
+<!--        </p>-->
+<!--    </div>-->
 </header>
 
 </html>

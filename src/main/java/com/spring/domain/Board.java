@@ -27,7 +27,6 @@ public class Board implements Serializable {
 
     private String title;
 
-
     private String content;
 
     @Column(insertable=false, updatable=false,
