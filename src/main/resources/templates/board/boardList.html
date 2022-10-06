@@ -9,12 +9,12 @@
 
 <div layout:fragment="content">
 
-    <div id="container">
+    <div class="container">
         <h2>게시글 목록</h2>
-        <h3><span th:text="${session['member'].name}"></span>님
+        <h3><span th:text="${#authentication.name}"></span>님
             게시판 입장을 환영합니다.</h3>
         <p><a th:href="@{/member/logout}"}>LOG_OUT</a></p>
-        <table class="tbl_list">
+        <table class="table my-4">
             <thead>
             <tr>
                 <th>번호</th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>

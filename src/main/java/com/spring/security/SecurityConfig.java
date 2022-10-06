@@ -34,7 +34,7 @@ public class SecurityConfig {
         //object create : builder pattern
 
         http
-                .csrf().disable()
+                //.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()   //parameter : http method enable
                 .antMatchers("/permitAll/*").permitAll()

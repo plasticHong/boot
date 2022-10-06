@@ -32,7 +32,7 @@
                 </tr>
                 <tr>
                     <td>작성일</td>
-                    <td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd')}"></td>
                 </tr>
                 <tr>
                     <td>조회수</td>
@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="submit">글수정</button>
+                        <button th:if = "${#authentication.name} == ${board.member.getId()}" type="submit">글수정</button>
 
                         <a  th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')') ? true : false}"
                            th:href="@{/deleteBoard(seq=${board.seq})}"
