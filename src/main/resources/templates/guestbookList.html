@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Title</title>
+</head>
+<div layout:fragment="content" class="">
+
+    <table class="table my-4">
+        <thead>
+        <tr>
+            <th>번호</th><th>제목</th><th>작성자</th>
+<!--            <th>등록일</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${result.dtoList}">
+            <td th:text="${board.gno}"></td>
+            <td><a th:href="@{/getBoard(seq=${board.gno})}" th:text="${board.title}"></a></td>
+            <td th:text="${board.writer}"></td>
+<!--            <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <ul class = "pagination justify-content-center align-items-center">
+
+        <li class = "page-item" th:if="${result.prev}">
+            <a th:href="@{/guestBook(page=${result.start-1})}" class = "page-link">
+            Previous
+            </a>
+        </li>
+
+          <li th:class = "'page-item '+ ${result.page == page? 'active':''} " th:each="page : ${result.pageList}">
+
+            <a th:href="@{/guestBook(page=${page})}" class = "page-link">
+                [[${page}]]
+            </a>
+
+        </li>
+
+        <li class = "page-item" th:if="${result.next}">
+            <a th:href="@{/guestBook(page=${result.end+1})}" class = "page-link">
+                Previous
+            </a>
+        </li>
+    </ul>
+</div>
+
+</html>
