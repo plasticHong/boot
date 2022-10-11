@@ -16,10 +16,13 @@ public class GuestBook extends BaseEntity{
     @Id
     @GeneratedValue
     private Long gno;
+
     @Column(length = 100,nullable = false)
     private String title;
+
     @Column(length = 1500,nullable = false)
     private String content;
+
     @Column(length = 50,nullable = false)
     private String writer;
 

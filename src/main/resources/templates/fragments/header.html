@@ -35,14 +35,15 @@
 <!--          <a th:href="@{admin}"}>관리자 페이지</a>-->
 <!--        </th:block>-->
         <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
-                    aria-expanded="false" aria-label="Toggle navigation">
+            <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="/">HiWeb</a>
 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
                     <th:block th:unless="${#authorization.expression('isAuthenticated()') ? true : false}">
@@ -66,6 +67,9 @@
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/getBoardList}">게시판</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/guestBook}">guestBook</a>
+                    </li>
 
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <li class="nav-item">
@@ -76,6 +80,7 @@
 
 
                 </ul>
+            </div>
             </div>
         </nav>
 

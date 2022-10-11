@@ -7,8 +7,10 @@
     <title>Title</title>
 </head>
 <div layout:fragment="content" class="">
+<div class="container">
 
-    <table class="table my-4">
+
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>번호</th><th>제목</th><th>작성자</th>
@@ -24,6 +26,7 @@
         </tr>
         </tbody>
     </table>
+    <p><a th:href="@{/guestbook/insertGuestBook}">insertGuestBook</a></p>
     <ul class = "pagination justify-content-center align-items-center">
 
         <li class = "page-item" th:if="${result.prev}">
@@ -46,6 +49,7 @@
             </a>
         </li>
     </ul>
+</div>
 </div>
 
 </html>

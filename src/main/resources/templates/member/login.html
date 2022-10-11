@@ -12,18 +12,18 @@
     <div id="container">
         <h2>로그인</h2>
         <form th:action="@{/securityLogin}" method="post">
-            <table class="tbl_login">
+            <table class="tbl_login table-bordered">
                 <tr>
                     <td>아이디</td>
-                    <td><input type="text" name="id"></td>
+                    <td><input type="text" name="id" class = "form-control"></td>
                 </tr>
                 <tr>
                     <td>비밀번호</td>
-                    <td><input type="password" name="password"></td>
+                    <td><input type="password" name="password" class = "form-control"></td>
                 </tr>
                 <tr>
                     <td colspan="2" align="center">
-                        <button type="submit">로그인</button>
+                        <button type="submit" class = "btn btn-primary">로그인</button>
                     </td>
                 </tr>
             </table>

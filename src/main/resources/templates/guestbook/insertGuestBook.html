@@ -12,7 +12,7 @@
 
     <div id="container">
         <h2>글쓰기</h2>
-        <form th:action="@{insertBoard}" th:method="post" enctype="multipart/form-data">
+        <form th:action="@{/insert}" method="post">
             <table class="tbl_reg">
                 <tr>
                     <td>제목</td>
@@ -21,8 +21,9 @@
                 <tr>
                     <td>작성자</td>
                     <td>
-<!--                        <input type="text" name="member" th:value="${session['member'].name}">-->
-                        <span sec:authentication="principal.member.name"></span>
+                        <input type="text" name="writer" th:value="${#authentication.name}">
+<!--                        <span sec:authentication="principal.member.name"></span>-->
+<!--                        <th:text sec:authentication="principal.member.name"/>-->
                     </td>
                 </tr>
                 <tr>
@@ -31,12 +32,7 @@
                         <textarea name="content" rows="10" cols="50"></textarea>
                     </td>
                 </tr>
-                <tr>
-                    <td>파일 업로드</td>
-                    <td>
-                        <input type="file" name="uploadFile" id="">
-                    </td>
-                </tr>
+
                 <tr>
                     <td colspan="2" align="center">
                         <button type="submit">새글 등록</button>

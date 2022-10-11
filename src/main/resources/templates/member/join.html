@@ -3,6 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <head>
     <title>Title</title>
 
@@ -13,6 +15,7 @@
             let pw = $("#password").val()
             let pw_confirm = $("#password_confirm").val()
             let name = $("#name").val()
+
 
 
             let idvalcheck = /^[a-zA-Z0-9]+$/
@@ -65,8 +68,10 @@
 
          function check() {
             console.log("check");
+             let token = $("meta[name='_csrf']").attr("content");
+             let header = $("meta[name='_csrf_header']").attr("content");
             $.ajax({
-                type: "post",
+                type: "get",
                 url: "/member/check",
                 //dataType: "json",
                 data: {
@@ -74,6 +79,9 @@
                     "password": $("#password").val(),
                     "name": $("#name").val()
                 },
+                // beforeSend:function (xhr) {
+                //     xhr.setRequestHeader(token,header);
+                // },
                 success: function (data) {
                     $("#result").text("사용 가능한 아이디 입니다.");
                 },

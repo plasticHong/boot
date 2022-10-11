@@ -81,7 +81,7 @@ public class MemberController {
     }
 
 
-    @PostMapping("/check")
+    @GetMapping("/check")
     @ResponseBody
     public Object idDuplicateCheck(Member member) {
 
