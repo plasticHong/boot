@@ -23,6 +23,8 @@ public class GuestBookController {
     @GetMapping("/guestBook")
      public String  getPage(PageRequestDto pageRequestDto, Model model) {
 
+        System.out.println(pageRequestDto.getType());
+
         PageResultDto<GuestBookDTO, GuestBook> list = service.getList(pageRequestDto);
 
         model.addAttribute("result",list);

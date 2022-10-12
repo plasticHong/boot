@@ -1,5 +1,6 @@
 package com.spring.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,7 +16,7 @@ import java.util.Date;
 @Setter
 @Entity
 @DynamicInsert
-@ToString(exclude = "boardList")
+//@Builder
 public class Board implements Serializable {
 
     private static final long serialVersionUID = 2L;
@@ -23,6 +24,7 @@ public class Board implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="seq")
     private Long seq;
 
     private String title;
@@ -40,6 +42,10 @@ public class Board implements Serializable {
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false, updatable = false)
     Member member;
+
+    public Board() {
+
+    }
 
 
     public void setMember(Member member){

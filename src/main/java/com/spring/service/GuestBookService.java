@@ -1,6 +1,7 @@
 package com.spring.service;
 
 
+import com.querydsl.core.BooleanBuilder;
 import com.spring.dto.GuestBookDTO;
 import com.spring.dto.PageRequestDto;
 import com.spring.dto.PageResultDto;
@@ -37,4 +38,9 @@ public interface GuestBookService {
     }
 
     public PageResultDto<GuestBookDTO,GuestBook> getList(PageRequestDto requestDto);
+
+
+    public BooleanBuilder getSearch(PageRequestDto requestDto);
+
+
 }

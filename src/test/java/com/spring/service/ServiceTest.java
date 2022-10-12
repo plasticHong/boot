@@ -32,23 +32,51 @@ public class ServiceTest {
 //    }
 
 
+//    @Test
+//    public void PagingTest() {
+//
+//        PageRequestDto pageRequestDto = PageRequestDto.builder()
+//                .page(10)
+//                .size(10)
+//                .build();
+//
+//        PageResultDto<GuestBookDTO,GuestBook> resultDto =
+//                service.getList(pageRequestDto);
+//
+//
+//        for (GuestBookDTO dto : resultDto.getDtoList()
+//             ) {
+//            System.out.println(dto);
+//        }
+//
+//    }
+
+
     @Test
-    public void PagingTest() {
+    public void searchTest() {
 
         PageRequestDto pageRequestDto = PageRequestDto.builder()
-                .page(10)
+                .page(1)
                 .size(10)
+                .type("t")
+                .keyword("한글")
                 .build();
 
-        PageResultDto<GuestBookDTO,GuestBook> resultDto =
-                service.getList(pageRequestDto);
+        PageResultDto<GuestBookDTO,GuestBook> resultDto = service.getList(pageRequestDto);
+        System.out.println("prev : "+resultDto.isPrev());
+        System.out.println("next : "+resultDto.isNext());
 
-
-        for (GuestBookDTO dto : resultDto.getDtoList()
+        for (GuestBookDTO guestBook: resultDto.getDtoList()
              ) {
-            System.out.println(dto);
+            System.out.println("검색 결과 : "+guestBook.toString());
+
         }
 
     }
+
+
+
+
+
 
 }

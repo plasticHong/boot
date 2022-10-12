@@ -2,10 +2,7 @@ package com.spring.domain;
 
 import javax.persistence.*;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
@@ -16,6 +13,8 @@ import java.util.List;
 @Setter
 @ToString(exclude = "boardList")
 @Entity
+//@Builder
+@AllArgsConstructor
 public class Member implements Serializable {
 
     private static final long serialVersionUID = 5L;
@@ -36,4 +35,9 @@ public class Member implements Serializable {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Board> boardList = new ArrayList<>();
+
+
+    public Member() {
+
+    }
 }
