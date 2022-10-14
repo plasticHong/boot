@@ -3,12 +3,19 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
-<meta name="_csrf" th:content="${_csrf.token}"/>
-<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <head>
     <title>Title</title>
-
     <script th:inline="javascript">
+        // $("document").ready(function (){
+        //     var token = $("#_csrf").attr("content");
+        //     var header = $("#_csrf_header").attr("content");
+        //
+        //     console.log(token)
+        //     console.log(header)
+        //     console.log(header==null)
+        //     console.log(token==null)
+        // })
+
         function validate() {
 
             let id = $("#id").val();
@@ -31,17 +38,41 @@
             }
 
         }
+
+        // var token = $("_csrf").attr("content");
+        var token = _csrf.content;
+        var header =_csrf_header.content;
+
         function join() {
+
+            console.log(token)
+            console.log(header)
+            console.log(header==null)
+            console.log(token==null)
+
+            $(document).ajaxSend(function(e, xhr, options) {
+                if(token && header){
+                    xhr.setRequestHeader(header,token);
+                }
+            });
+
             console.log("join함수 실행");
             $.ajax({
+
                 type: "post",
                 url: "/member/join",
                 //dataType: "json",
+                // beforeSend: function(xhr) {
+                //     if(token && header){
+                //         xhr.setRequestHeader(header, token);
+                //     }
+                // },
                 data: {
                     "id": $("#id").val(),
                     "password": $("#password").val(),
                     "name": $("#name").val()
                 },
+
                 success: function (data) {
                     console.log("join함수 응답 성공");
 
@@ -79,9 +110,7 @@
                     "password": $("#password").val(),
                     "name": $("#name").val()
                 },
-                // beforeSend:function (xhr) {
-                //     xhr.setRequestHeader(token,header);
-                // },
+
                 success: function (data) {
                     $("#result").text("사용 가능한 아이디 입니다.");
                 },
@@ -112,7 +141,7 @@
 
     <div id="container">
         <h2>회원가입</h2>
-<!--        <form action="/member/join" method="post">-->
+        <form action="/member/join" method="post">
         <table class="tbl_login">
             <tr>
                 <td>아이디</td>
@@ -132,12 +161,12 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <button type="button" onclick="validate()" >가입하기</button>
+                    <button type="button" onclick="join()" >가입하기</button>
                 </td>
             </tr>
         </table>
 
-<!--        </form>-->
+        </form>
 
     </div>
 

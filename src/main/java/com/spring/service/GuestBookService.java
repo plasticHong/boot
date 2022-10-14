@@ -5,9 +5,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.spring.dto.GuestBookDTO;
 import com.spring.dto.PageRequestDto;
 import com.spring.dto.PageResultDto;
-import com.spring.entity.GuestBook;
-
-import javax.swing.text.html.parser.Entity;
+import com.spring.domain.GuestBook;
 
 public interface GuestBookService {
 

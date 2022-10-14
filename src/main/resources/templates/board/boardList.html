@@ -13,7 +13,7 @@
         <h2>게시글 목록</h2>
         <h3><span th:text="${#authentication.name}"></span>님
             게시판 입장을 환영합니다.</h3>
-        <p><a th:href="@{/member/logout}"}>LOG_OUT</a></p>
+        <p><a th:href="@{/member/logout}">LOG_OUT</a></p>
         <table class="table my-4">
             <thead>
             <tr>
@@ -21,18 +21,47 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="board : ${boardList}">
+            <tr th:each="board : ${boardList.dtoList}">
                 <td th:text="${board.seq}"></td>
                 <td><a th:href="@{/getBoard(seq=${board.seq})}"
                        th:text="${board.title}"></a></td>
                 <td th:text="${board.member.getId()}"></td>
-                <td th:text="${#dates.format(board.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+<!--                <td th:text="${#dates.format(board.reg_date, 'yyyy-MM-dd HH:mm:ss')}"></td>-->
+                <td>[[${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                 <td th:text="${board.cnt}"></td>
             </tr>
             </tbody>
         </table>
         <p><a th:href="@{/insertBoard}">새글 등록</a> </p>
+
+        <ul class="pagination justify-content-center align-items-center">
+
+            <li class="page-item" th:if="${boardList.prev}">
+                <a th:href="@{/getBoardList(page=${result.start-1})}" class="page-link">
+                    Previous
+                </a>
+            </li>
+
+            <li th:class="'page-item '+ ${boardList.page == page? 'active':''} " th:each="page : ${boardList.pageList}">
+
+                <a th:href="@{/getBoardList(page=${page},type=${pageRequestDto.type},keyword=${pageRequestDto.keyword})}" class="page-link">
+                    [[${page}]]
+                </a>
+
+            </li>
+
+            <li class="page-item" th:if="${boardList.next}">
+                <a th:href="@{/getBoardList(page=${boardList.end+1})}" class="page-link">
+                    Previous
+                </a>
+            </li>
+        </ul>
+
+
     </div>
+
+
+
 
 </div>
 

@@ -74,7 +74,7 @@ public class MemberController {
     @PostMapping("join")
     public Object doJoin(Member member, Model model) {
 
-            System.out.println("member = "+member.toString());
+            System.out.println("member = "+member.toString()+"join");
             Member joinMember = service.memberJoin(member);
 
         return "member/login";

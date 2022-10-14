@@ -1,19 +1,9 @@
 package com.spring.repository;
 
-import com.spring.domain.Board;
-import com.spring.domain.Member;
-import com.spring.domain.Reply;
-import com.spring.domain.Role;
-import com.spring.entity.GuestBook;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.beans.Transient;
-import java.util.Optional;
-import java.util.stream.IntStream;
 
 @SpringBootTest
 public class GuestBookRepositoryTests {

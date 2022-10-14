@@ -1,7 +1,16 @@
 package com.spring.service;
 
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.spring.domain.Board;
+import com.spring.domain.GuestBook;
+import com.spring.domain.QBoard;
+import com.spring.domain.QGuestBook;
+import com.spring.dto.BoardDTO;
+import com.spring.dto.GuestBookDTO;
+import com.spring.dto.PageRequestDto;
+import com.spring.dto.PageResultDto;
 import com.spring.repository.BoardRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +24,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor
@@ -25,9 +35,50 @@ public class BoardServiceImp implements BoardService{
 
     //게시글 목록 보기
     @Override
-    public Page<Board> getBoardList() {
+    public PageResultDto<BoardDTO,Board> getBoardList(PageRequestDto requestDto) {
         Pageable pageable = PageRequest.of(0,10, Sort.Direction.DESC,"seq");
-        return boardRepo.findAll(pageable);
+        BooleanBuilder builder = getSearch(requestDto);
+
+        Page<Board> result = boardRepo.findAll(builder,pageable);
+
+        Function<Board, BoardDTO> fn = (entity -> toDto(entity));
+        return new PageResultDto<>(result,fn);
+    }
+
+
+    @Override
+    public BooleanBuilder getSearch(PageRequestDto requestDto) {
+        String type = requestDto.getType();
+        String keyword = requestDto.getKeyword();
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        QBoard qBoard = QBoard.board;
+
+        BooleanExpression expression = qBoard.seq.gt(0L);
+        builder.and(expression);
+
+        //null처리
+
+        if(Objects.isNull(type)||type.trim().length() == 0){
+            return builder;
+        }
+
+        BooleanBuilder conditionBuilder = new BooleanBuilder();
+
+        if(type.contains("t")){
+            conditionBuilder.or(qBoard.title.contains(keyword));
+        }
+        if(type.contains("c")){
+            conditionBuilder.or(qBoard.content.contains(keyword));
+        }
+//        if(type.contains("w")){
+//            conditionBuilder.or(qBoard.member.contains(keyword));
+//        }
+
+        builder.and(conditionBuilder);
+
+        return builder;
     }
 
     //게시글 등록

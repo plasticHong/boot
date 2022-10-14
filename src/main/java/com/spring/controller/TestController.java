@@ -45,16 +45,17 @@ public class TestController {
     }
 
 
-    @GetMapping("/getList")
-    public String getList(Model model){
 
-
-
-        model.addAttribute("list",service.getBoardList());
-
-
-        return "hello";
-    }
+//    @GetMapping("/getList")
+//    public String getList(Model model){
+//
+//
+//
+//        model.addAttribute("list",service.getBoardList());
+//
+//
+//        return "hello";
+//    }
 
 
     @GetMapping("/username")

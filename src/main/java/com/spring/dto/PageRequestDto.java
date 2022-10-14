@@ -13,6 +13,9 @@ import org.springframework.data.domain.Sort;
 @Data
 public class PageRequestDto {
 
+    private final int DEFAULT_PAGE_VALUE = 1;
+    private final int DEFAULT_PAGE_SIZE_VALUE = 10;
+
     private int page;
     private int size;
 
@@ -21,8 +24,8 @@ public class PageRequestDto {
     private String keyword;
 
     public PageRequestDto() {
-        this.page = 1;
-        this.size = 10;
+        this.page = DEFAULT_PAGE_SIZE_VALUE;
+        this.size = DEFAULT_PAGE_SIZE_VALUE;
     }
 
     public Pageable getPageable(Sort sort) {

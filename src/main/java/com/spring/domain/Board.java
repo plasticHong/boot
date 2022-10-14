@@ -1,9 +1,6 @@
 package com.spring.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +13,10 @@ import java.util.Date;
 @Setter
 @Entity
 @DynamicInsert
-//@Builder
-public class Board implements Serializable {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Board extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 2L;
 
@@ -31,10 +30,6 @@ public class Board implements Serializable {
 
     private String content;
 
-    @Column(insertable=false, updatable=false,
-            columnDefinition = "timestamp default current_timestamp") //create 할 때 적용
-    private Date createDate;
-
     @Column(insertable=false, updatable=true,
             columnDefinition = "int default 0")
     private int cnt;
@@ -43,14 +38,14 @@ public class Board implements Serializable {
     @JoinColumn(name = "member_id", nullable = false, updatable = false)
     Member member;
 
-    public Board() {
+//    public Board() {
+//
+//    }
 
-    }
 
-
-    public void setMember(Member member){
-        this.member = member;
-        member.getBoardList().add(this);
-    }
+//    public void setMember(Member member){
+//        this.member = member;
+//        member.getBoardList().add(this);
+//    }
 
 }

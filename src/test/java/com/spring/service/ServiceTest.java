@@ -3,7 +3,7 @@ package com.spring.service;
 import com.spring.dto.GuestBookDTO;
 import com.spring.dto.PageRequestDto;
 import com.spring.dto.PageResultDto;
-import com.spring.entity.GuestBook;
+import com.spring.domain.GuestBook;
 import com.spring.repository.GuestBookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

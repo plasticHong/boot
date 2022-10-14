@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.UUID;
 
 import com.spring.domain.Member;
+import com.spring.dto.BoardDTO;
 import com.spring.dto.FileDTO;
+import com.spring.dto.PageRequestDto;
+import com.spring.dto.PageResultDto;
 import com.spring.security.SecurityUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
@@ -43,9 +46,9 @@ public class BoardController {
 
     //게시글 목록
     @GetMapping("/getBoardList")
-    public String getBoardList(Model model, @ModelAttribute("member") Member member) {
+    public String getBoardList(Model model, @ModelAttribute("member") Member member, PageRequestDto pageRequestDto) {
 
-        Page<Board> boardList = service.getBoardList();
+        PageResultDto<BoardDTO,Board> boardList = service.getBoardList(pageRequestDto);
 
         model.addAttribute("boardList", boardList);
 
