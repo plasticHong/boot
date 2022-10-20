@@ -32,7 +32,8 @@
                 </tr>
                 <tr>
                     <td>작성일</td>
-                    <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}"></td>
+<!--                    <td th:text="${#dates.format(board.regDate, 'yyyy-MM-dd')}"></td>-->
+                    <td>[[${#temporals.format(board.regDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
                 </tr>
                 <tr>
                     <td>조회수</td>
